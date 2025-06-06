@@ -6,12 +6,32 @@ import {
 import { createFilter } from "@rollup/pluginutils";
 import browserslist from "browserslist-to-esbuild";
 import type { Plugin } from "rollup";
-import type { AdapterOptions } from "@tscb/builder-core";
+import { extensions, type AdapterOptions } from "@tscb/builder-core";
+import { extname } from "node:path";
 
 export type TransformFunction = (
   src: string,
   options?: TransformOptions,
 ) => Promise<Pick<TransformResult, "code" | "map"> | null>;
+
+function extToEsbuildLoader(ext: string): TransformOptions["loader"] {
+  switch (ext) {
+    case ".js":
+    case ".cjs":
+    case ".mjs":
+      return "js";
+    case ".ts":
+    case ".cts":
+    case ".mts":
+      return "ts";
+    case ".jsx":
+      return "jsx";
+    case ".tsx":
+      return "tsx";
+    default:
+      return "js";
+  }
+}
 
 // Create an esbuild adapter for Rollup plugins
 export function createEsbuildAdapter(
@@ -23,10 +43,11 @@ export function createEsbuildAdapter(
       name: "esbuild",
       transform(code, id) {
         if (!filter(id)) return null;
+        if (!extensions.some((ext) => id.endsWith(ext))) return null;
 
         return transformFn(code, {
           target: browserslist(input.targets),
-          loader: "ts",
+          loader: extToEsbuildLoader(extname(id)),
           sourcemap: true,
           sourcefile: id,
         });

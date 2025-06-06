@@ -5,7 +5,7 @@ import {
   type TransformOptions,
 } from "@babel/core";
 import type { Plugin } from "rollup";
-import type { AdapterOptions } from "@tscb/builder-core";
+import { extensions, type AdapterOptions } from "@tscb/builder-core";
 
 export type TransformFunction = (
   code: string,
@@ -23,6 +23,7 @@ export function createBabelAdapter(
       name: "babel",
       async transform(code, id) {
         if (!filter(id)) return null;
+        if (!extensions.some((ext) => id.endsWith(ext))) return null;
 
         const result = await transformFn(code, {
           babelrc: false,

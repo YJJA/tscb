@@ -1,12 +1,37 @@
 import { createFilter } from "@rollup/pluginutils";
-import { transform, type Options, type Output } from "@swc/core";
+import {
+  transform,
+  type Options,
+  type Output,
+  type ParserConfig,
+} from "@swc/core";
 import type { Plugin } from "rollup";
-import type { AdapterOptions } from "@tscb/builder-core";
+import { extensions, type AdapterOptions } from "@tscb/builder-core";
+import { extname } from "node:path";
 
 export type TransformFunction = (
   src: string,
   options?: Options,
 ) => Promise<Output>;
+
+function extToSwcParser(ext: string): ParserConfig {
+  switch (ext) {
+    case ".ts":
+    case ".cts":
+    case ".mts":
+      return { syntax: "typescript" };
+    case ".tsx":
+      return { syntax: "typescript", tsx: true };
+    case ".js":
+    case ".cjs":
+    case ".mjs":
+      return { syntax: "ecmascript" };
+    case ".jsx":
+      return { syntax: "ecmascript", jsx: true };
+    default:
+      return { syntax: "ecmascript" };
+  }
+}
 
 // Create a SWC adapter for Rollup plugins
 export function createSwcAdapter(
@@ -18,12 +43,11 @@ export function createSwcAdapter(
       name: "swc",
       transform(code, id) {
         if (!filter(id)) return null;
+        if (!extensions.some((ext) => id.endsWith(ext))) return null;
 
         return transformFn(code, {
           jsc: {
-            parser: {
-              syntax: "typescript",
-            },
+            parser: extToSwcParser(extname(id)),
             loose: true,
           },
           env: {

@@ -3,6 +3,8 @@ import { rollup, type ExternalOption, type Plugin } from "rollup";
 import type { FilterPattern } from "@rollup/pluginutils";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
+import json from "@rollup/plugin-json";
+import terser from "@rollup/plugin-terser";
 import { paths } from "./paths.ts";
 import { readExternal, type BuildConfig } from "./config.ts";
 
@@ -43,6 +45,8 @@ export async function buildCode(
       nodeResolve(),
       // @ts-ignore
       commonjs(),
+      // @ts-ignore
+      json(),
       adapter({
         targets: [
           "defaults",
@@ -59,6 +63,8 @@ export async function buildCode(
     format: "esm",
     entryFileNames: "[name].js",
     sourcemap: true,
+    // @ts-ignore
+    plugins: config.minify ? [terser()] : [],
   });
 
   console.log(styleText("blue", "Wrote ESM output:"));
@@ -76,6 +82,8 @@ export async function buildCode(
       nodeResolve(),
       // @ts-ignore
       commonjs(),
+      // @ts-ignore
+      json(),
       adapter({
         targets: ["maintained node versions"],
       }),
@@ -89,6 +97,8 @@ export async function buildCode(
     entryFileNames: "[name].cjs",
     sourcemap: true,
     exports: "named",
+    // @ts-ignore
+    plugins: config.minify ? [terser()] : [],
   });
 
   console.log(styleText("blue", "Wrote CJS output:"));

@@ -12,7 +12,8 @@
     "ignore": [
       "**/*.test.ts"
     ],
-    "clean": true
+    "clean": true,
+    "minify": true
   },
   "main": "./lib/commonjs/index.cjs",
   "module": "./lib/esm/index.js",

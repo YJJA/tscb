@@ -15,9 +15,10 @@ import { SRC_DIR } from "./constants.ts";
 export interface BuildConfig {
   exports: string | string[] | Record<string, string>;
   ignore?: string | string[];
+  external?: boolean | string[];
   clean?: boolean;
   treeshake?: boolean;
-  external?: boolean | string[];
+  minify?: boolean;
 }
 
 export type PackageJson = Record<string, unknown>;
@@ -54,12 +55,6 @@ function checkBuildConfig(config: unknown): config is BuildConfig | undefined {
   if (!isUndefined(ignore) && !isString(ignore) && !isStringArray(ignore))
     return false;
 
-  const clean: unknown = Reflect.get(config, "clean");
-  if (!isUndefined(clean) && !isBoolean(clean)) return false;
-
-  const treeshake: unknown = Reflect.get(config, "treeshake");
-  if (!isUndefined(treeshake) && !isBoolean(treeshake)) return false;
-
   const external: unknown = Reflect.get(config, "external");
   if (
     !isUndefined(external) &&
@@ -67,6 +62,15 @@ function checkBuildConfig(config: unknown): config is BuildConfig | undefined {
     !isStringArray(external)
   )
     return false;
+
+  const clean: unknown = Reflect.get(config, "clean");
+  if (!isUndefined(clean) && !isBoolean(clean)) return false;
+
+  const treeshake: unknown = Reflect.get(config, "treeshake");
+  if (!isUndefined(treeshake) && !isBoolean(treeshake)) return false;
+
+  const minify: unknown = Reflect.get(config, "minify");
+  if (!isUndefined(minify) && !isBoolean(minify)) return false;
 
   return true;
 }
@@ -111,3 +115,6 @@ export function readExternal(config: BuildConfig) {
 
   return [];
 }
+
+// extensions
+export const extensions = [".js", ".cjs", ".mjs", ".ts", ".cts", ".mts"];
