@@ -1,6 +1,6 @@
 {
   "name": "@tscb/builder-core",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "type": "module",
   "license": "MIT",
   "main": "./lib/index.js",
@@ -15,10 +15,10 @@
   "dependencies": {
     "@microsoft/api-extractor": "catalog:",
     "@rollup/plugin-commonjs": "catalog:",
-    "@rollup/plugin-node-resolve": "catalog:",
-    "@rollup/pluginutils": "catalog:",
-    "@rollup/plugin-terser": "catalog:",
     "@rollup/plugin-json": "catalog:",
+    "@rollup/plugin-node-resolve": "catalog:",
+    "@rollup/plugin-terser": "catalog:",
+    "@rollup/pluginutils": "catalog:",
     "glob": "catalog:",
     "payload-is": "catalog:",
     "rollup": "catalog:",
