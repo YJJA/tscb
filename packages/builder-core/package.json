@@ -16,6 +16,7 @@
     "@rollup/plugin-commonjs": "catalog:",
     "@rollup/plugin-node-resolve": "catalog:",
     "@rollup/pluginutils": "catalog:",
+    "@microsoft/api-extractor": "catalog:",
     "glob": "catalog:",
     "payload-is": "catalog:",
     "rollup": "catalog:",

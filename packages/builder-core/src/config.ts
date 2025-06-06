@@ -9,9 +9,11 @@ import {
   isUndefined,
 } from "payload-is";
 import { paths } from "./paths.js";
+import path from "node:path";
+import { SRC_DIR } from "./constants.ts";
 
 export interface BuildConfig {
-  exports: string | string[];
+  exports: string | string[] | Record<string, string>;
   ignore?: string | string[];
   clean?: boolean;
   treeshake?: boolean;
@@ -33,13 +35,21 @@ export async function readPackageJson() {
   return pkg as PackageJson;
 }
 
+function isRecord(value: unknown): value is Record<string, string> {
+  return (
+    isObject(value) &&
+    !Array.isArray(value) &&
+    Object.values(value).every(isString)
+  );
+}
+
 function checkBuildConfig(config: unknown): config is BuildConfig | undefined {
   if (isUndefined(config)) return true;
   if (!isObject(config)) return false;
 
   const cexports: unknown = Reflect.get(config, "exports");
-  if (!isString(cexports) && !isStringArray(cexports)) return false;
-
+  if (!isString(cexports) && !isStringArray(cexports) && !isRecord(cexports))
+    return false;
   const ignore: unknown = Reflect.get(config, "ignore");
   if (!isUndefined(ignore) && !isString(ignore) && !isStringArray(ignore))
     return false;
@@ -70,12 +80,23 @@ export function readBuildConfig(pkg: PackageJson) {
 
 // readEntryFiles
 export async function readEntryFiles(config: BuildConfig) {
-  const entryFiles = await glob(config.exports, {
-    ignore: config?.ignore,
-  });
-  assert(entryFiles.length > 0, "Not found entry file.");
+  if (isString(config.exports) || isStringArray(config.exports)) {
+    const entryFiles = await glob(config.exports, {
+      ignore: config?.ignore,
+    });
 
-  return entryFiles;
+    return Object.fromEntries(
+      entryFiles.map((file) => [
+        path.relative(
+          SRC_DIR,
+          file.slice(0, file.length - path.extname(file).length),
+        ),
+        file,
+      ]),
+    );
+  } else {
+    return config.exports;
+  }
 }
 
 // readExternal

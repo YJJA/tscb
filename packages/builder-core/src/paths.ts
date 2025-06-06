@@ -16,5 +16,6 @@ export const paths = {
   distEsmDir: resolve(`${DIST_DIR}/${ESM_DIR}`),
   distCjsDir: resolve(`${DIST_DIR}/${CJS_DIR}`),
   distTypesDir: resolve(`${DIST_DIR}/${TYPES_DIR}`),
+  distTmpDir: resolve(`${DIST_DIR}/tmp`),
   resolve,
 };

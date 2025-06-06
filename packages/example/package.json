@@ -5,12 +5,14 @@
   "type": "module",
   "license": "MIT",
   "x-build": {
-    "exports": "src/*.ts",
+    "exports": {
+      "index": "src/index.ts",
+      "other": "src/otherindex.ts"
+    },
     "ignore": [
       "**/*.test.ts"
     ],
-    "clean": true,
-    "external": true
+    "clean": true
   },
   "main": "./lib/commonjs/index.cjs",
   "module": "./lib/esm/index.js",
@@ -23,17 +25,11 @@
       "require": "./lib/commonjs/index.cjs",
       "default": "./lib/commonjs/index.cjs"
     },
-    "./bar": {
-      "types": "./lib/types/bar.d.ts",
-      "import": "./lib/esm/bar.js",
-      "require": "./lib/commonjs/bar.cjs",
-      "default": "./lib/commonjs/bar.cjs"
-    },
-    "./foo": {
-      "types": "./lib/types/foo.d.ts",
-      "import": "./lib/esm/foo.js",
-      "require": "./lib/commonjs/foo.cjs",
-      "default": "./lib/commonjs/foo.cjs"
+    "./other": {
+      "types": "./lib/types/other.d.ts",
+      "import": "./lib/esm/other.js",
+      "require": "./lib/commonjs/other.cjs",
+      "default": "./lib/commonjs/other.cjs"
     },
     "./package.json": "./package.json"
   },

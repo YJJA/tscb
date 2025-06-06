@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import fs from "node:fs";
 import { rm } from "node:fs/promises";
 import { buildCode, type AdapterFunction } from "./build-code.ts";
 import { buildExports } from "./build-exports.ts";
@@ -13,11 +12,17 @@ export async function build(adapter: AdapterFunction) {
   const buildConfig = readBuildConfig(pkg);
   const entryFiles = await readEntryFiles(buildConfig);
 
-  if (buildConfig.clean && fs.existsSync(paths.distDir)) {
-    await rm(paths.distDir, { recursive: true });
+  if (!entryFiles || Object.keys(entryFiles).length === 0) {
+    throw new Error(
+      "No entry files found. Please check your build configuration.",
+    );
   }
 
-  await buildTypes(entryFiles);
+  if (buildConfig.clean) {
+    await rm(paths.distDir, { recursive: true, force: true });
+  }
+
   await buildCode(buildConfig, entryFiles, adapter);
   await buildExports(pkg, entryFiles);
+  await buildTypes(entryFiles);
 }

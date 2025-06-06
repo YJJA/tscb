@@ -1,10 +1,10 @@
-import path from "node:path";
+import { styleText } from "node:util";
 import { rollup, type ExternalOption, type Plugin } from "rollup";
-import { paths } from "./paths.ts";
-import { readExternal, type BuildConfig } from "./config.ts";
 import type { FilterPattern } from "@rollup/pluginutils";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
+import { paths } from "./paths.ts";
+import { readExternal, type BuildConfig } from "./config.ts";
 
 export interface AdapterOptions {
   targets: string[];
@@ -17,19 +17,20 @@ export type AdapterFunction = (input: AdapterOptions) => Plugin;
 // buildCode
 export async function buildCode(
   config: BuildConfig,
-  entryFiles: string[],
+  entryFiles: Record<string, string>,
   adapter: AdapterFunction,
 ) {
   const input = Object.fromEntries(
-    entryFiles.map((file) => [
-      path.relative(
-        "src",
-        file.slice(0, file.length - path.extname(file).length),
-      ),
-      paths.resolve(file),
-    ]),
+    Object.entries(entryFiles).map(([name, file]) => {
+      let fileName = name;
+      if (name === ".") {
+        fileName = "index";
+      } else if (name.startsWith("./")) {
+        fileName = name.slice(2);
+      }
+      return [fileName, paths.resolve(file)];
+    }),
   );
-
   const external: ExternalOption = readExternal(config);
   const treeshake = config.treeshake ?? true;
 
@@ -50,15 +51,21 @@ export async function buildCode(
         ],
       }),
     ],
+    logLevel: "debug",
   });
 
-  await esmbundle.write({
+  const esmOutput = await esmbundle.write({
     dir: paths.distEsmDir,
     format: "esm",
     entryFileNames: "[name].js",
     sourcemap: true,
-    preserveModules: true,
   });
+
+  console.log(styleText("blue", "Wrote ESM output:"));
+  esmOutput.output.forEach((chunk) => {
+    console.log(styleText("green", chunk.fileName));
+  });
+  console.log("");
 
   // cjs
   const cjsbundle = await rollup({
@@ -73,14 +80,20 @@ export async function buildCode(
         targets: ["maintained node versions"],
       }),
     ],
+    logLevel: "debug",
   });
 
-  await cjsbundle.write({
+  const cjsOutput = await cjsbundle.write({
     dir: paths.distCjsDir,
     format: "cjs",
     entryFileNames: "[name].cjs",
     sourcemap: true,
-    preserveModules: true,
     exports: "named",
   });
+
+  console.log(styleText("blue", "Wrote CJS output:"));
+  cjsOutput.output.forEach((chunk) => {
+    console.log(styleText("green", chunk.fileName));
+  });
+  console.log("");
 }

@@ -1,4 +1,3 @@
-import path from "node:path";
 import { writeFile } from "node:fs/promises";
 import { paths } from "./paths.ts";
 import { CJS_DIR, DIST_DIR, ESM_DIR, SRC_DIR, TYPES_DIR } from "./constants.ts";
@@ -6,7 +5,7 @@ import { CJS_DIR, DIST_DIR, ESM_DIR, SRC_DIR, TYPES_DIR } from "./constants.ts";
 // buildExports
 export async function buildExports(
   pkg: Record<string, any>,
-  entryFiles: string[],
+  entryFiles: Record<string, string>,
 ) {
   const entries = createEntries(entryFiles);
   const pkgExports = Object.fromEntries([
@@ -25,20 +24,29 @@ export async function buildExports(
 }
 
 // createEntries
-export function createEntries(entryFiles: string[]) {
-  return entryFiles
-    .map((file) => {
-      const name = path.relative(
-        SRC_DIR,
-        file.slice(0, file.length - path.extname(file).length),
-      );
+export function createEntries(entryFiles: Record<string, string>) {
+  return Object.entries(entryFiles)
+    .map(([name, _file]) => {
+      let fileName = name;
+      if (name === ".") {
+        fileName = "index";
+      } else if (name.startsWith("./")) {
+        fileName = name.slice(2);
+      }
+
       const exportFields = {
-        types: `./${DIST_DIR}/${TYPES_DIR}/${name}.d.ts`,
-        import: `./${DIST_DIR}/${ESM_DIR}/${name}.js`,
-        require: `./${DIST_DIR}/${CJS_DIR}/${name}.cjs`,
-        default: `./${DIST_DIR}/${CJS_DIR}/${name}.cjs`,
+        types: `./${DIST_DIR}/${TYPES_DIR}/${fileName}.d.ts`,
+        import: `./${DIST_DIR}/${ESM_DIR}/${fileName}.js`,
+        require: `./${DIST_DIR}/${CJS_DIR}/${fileName}.cjs`,
+        default: `./${DIST_DIR}/${CJS_DIR}/${fileName}.cjs`,
       };
-      const key = name === "index" ? "." : `./${name}`;
+
+      let key = name;
+      if (name === "index") {
+        key = ".";
+      } else if (!name.startsWith(".")) {
+        key = `./${name}`;
+      }
       return [key, exportFields] as const;
     })
     .sort((a, b) => a[0].localeCompare(b[0]));
