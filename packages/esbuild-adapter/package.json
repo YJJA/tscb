@@ -10,7 +10,8 @@
     "build": "tsc",
     "clean": "del lib",
     "test": "node --test **/*.test.ts",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "prepublish": "pnpm run check-types && pnpm run clean && pnpm run build"
   },
   "dependencies": {
     "@rollup/pluginutils": "catalog:",
@@ -23,8 +24,7 @@
     "@types/node": "catalog:",
     "rollup": "catalog:",
     "del-cli": "catalog:",
-    "typescript": "catalog:",
-    "vitest": "catalog:"
+    "typescript": "catalog:"
   },
   "author": "Liu Hong <hongdoit@icloud.com> (https://github.com/YJJA)"
 }

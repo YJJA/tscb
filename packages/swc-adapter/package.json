@@ -10,7 +10,8 @@
     "build": "tsc",
     "clean": "del lib",
     "test": "node --test **/*.test.ts",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "prepublish": "pnpm run check-types && pnpm run clean && pnpm run build"
   },
   "files": [
     "lib",

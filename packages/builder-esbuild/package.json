@@ -7,7 +7,8 @@
   "scripts": {
     "build": "tsc",
     "clean": "del lib",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "prepublish": "pnpm run check-types && pnpm run clean && pnpm run build"
   },
   "dependencies": {
     "@tscb/builder-core": "workspace:*",
@@ -17,8 +18,7 @@
     "@tscb/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "del-cli": "catalog:",
-    "typescript": "catalog:",
-    "vitest": "catalog:"
+    "typescript": "catalog:"
   },
   "author": "Liu Hong <hongdoit@icloud.com> (https://github.com/YJJA)"
 }

@@ -12,7 +12,6 @@
   "license": "MIT",
   "packageManager": "pnpm@10.11.1",
   "dependencies": {
-    "prettier": "^3.5.3",
-    "vitest": "catalog:"
+    "prettier": "^3.5.3"
   }
 }

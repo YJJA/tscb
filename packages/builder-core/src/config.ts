@@ -2,6 +2,13 @@ import { glob } from "glob";
 import { readFile } from "node:fs/promises";
 import assert from "node:assert";
 import { builtinModules } from "node:module";
+import {
+  isBoolean,
+  isObject,
+  isString,
+  isStringArray,
+  isUndefined,
+} from "payload-is";
 import { paths } from "./paths.js";
 
 export interface BuildConfig {
@@ -21,33 +28,23 @@ const buildConfigDefault: BuildConfig = {
 export async function readPackageJson() {
   const pkgJson = await readFile(paths.packageJson, "utf8");
   const pkg: unknown = JSON.parse(pkgJson);
-  assert(typeof pkg === "object" && pkg !== null, "package.json format error.");
+  assert(isObject(pkg), "package.json format error.");
   return pkg as PackageJson;
 }
 
-function isStringArray(payload: unknown): payload is string[] {
-  return (
-    Array.isArray(payload) && payload.every((it) => typeof it === "string")
-  );
-}
-
 function checkBuildConfig(config: unknown): config is BuildConfig | undefined {
-  if (typeof config === "undefined") return true;
-  if (typeof config !== "object" || config === null) return false;
+  if (isUndefined(config)) return true;
+  if (!isObject(config)) return false;
 
   const cexports: unknown = Reflect.get(config, "exports");
-  if (typeof cexports !== "string" && !isStringArray(cexports)) return false;
+  if (!isString(cexports) && !isStringArray(cexports)) return false;
 
   const ignore: unknown = Reflect.get(config, "ignore");
-  if (
-    typeof ignore !== "undefined" &&
-    typeof ignore !== "string" &&
-    !isStringArray(ignore)
-  )
+  if (!isUndefined(ignore) && !isString(ignore) && !isStringArray(ignore))
     return false;
 
   const clean: unknown = Reflect.get(config, "clean");
-  if (typeof clean !== "undefined" && typeof clean !== "boolean") return false;
+  if (!isUndefined(clean) && !isBoolean(clean)) return false;
 
   return true;
 }
