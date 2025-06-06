@@ -1,6 +1,6 @@
 {
   "name": "@tscb/example",
-  "version": "0.1.1",
+  "version": "0.2.2",
   "private": true,
   "type": "module",
   "license": "MIT",
@@ -44,10 +44,10 @@
     "payload-is": "catalog:"
   },
   "devDependencies": {
-    "@tscb/tsconfig": "workspace:*",
     "@tscb/builder-babel": "workspace:*",
     "@tscb/builder-esbuild": "workspace:*",
     "@tscb/builder-swc": "workspace:*",
+    "@tscb/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "del-cli": "catalog:",
     "typescript": "catalog:"
