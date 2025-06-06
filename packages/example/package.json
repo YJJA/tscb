@@ -1,0 +1,51 @@
+{
+  "name": "@tscb/example",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "x-build": {
+    "exports": "src/*.ts"
+  },
+  "main": "./lib/commonjs/index.cjs",
+  "module": "./lib/esm/index.js",
+  "types": "./lib/types/index.d.ts",
+  "source": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "import": "./lib/esm/index.js",
+      "require": "./lib/commonjs/index.cjs",
+      "default": "./lib/commonjs/index.cjs"
+    },
+    "./bar": {
+      "types": "./lib/types/bar.d.ts",
+      "import": "./lib/esm/bar.js",
+      "require": "./lib/commonjs/bar.cjs",
+      "default": "./lib/commonjs/bar.cjs"
+    },
+    "./foo": {
+      "types": "./lib/types/foo.d.ts",
+      "import": "./lib/esm/foo.js",
+      "require": "./lib/commonjs/foo.cjs",
+      "default": "./lib/commonjs/foo.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "builder-babel": "builder-babel",
+    "builder-esbuild": "builder-esbuild",
+    "builder-swc": "builder-swc",
+    "clean": "del lib",
+    "check-types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@tscb/tsconfig": "workspace:*",
+    "@tscb/builder-babel": "workspace:*",
+    "@tscb/builder-esbuild": "workspace:*",
+    "@tscb/builder-swc": "workspace:*",
+    "@types/node": "catalog:",
+    "del-cli": "catalog:",
+    "typescript": "catalog:"
+  }
+}

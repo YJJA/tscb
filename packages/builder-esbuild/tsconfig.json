@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@tscb/tsconfig/base.json",
+  "compilerOptions": {
+    "target": "es2020",
+    "noEmit": false,
+    "declaration": false,
+    "outDir": "lib"
+  }
+}

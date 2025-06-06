@@ -1,0 +1,28 @@
+{
+  "name": "@tscb/builder-babel",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "MIT",
+  "bin": "./lib/bin.js",
+  "scripts": {
+    "build": "tsc",
+    "clean": "del lib",
+    "check-types": "tsc --noEmit"
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "@tscb/builder-core": "workspace:*",
+    "@tscb/babel-adapter": "workspace:*"
+  },
+  "devDependencies": {
+    "@tscb/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "del-cli": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "author": "Liu Hong <hongdoit@icloud.com> (https://github.com/YJJA)"
+}
