@@ -1,6 +1,6 @@
 {
   "name": "@tscb/swc-adapter",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "license": "MIT",
   "main": "./lib/index.js",
@@ -18,15 +18,15 @@
     "src"
   ],
   "dependencies": {
-    "@swc/core": "catalog:",
-    "@rollup/pluginutils": "catalog:"
+    "@rollup/pluginutils": "catalog:",
+    "@swc/core": "catalog:"
   },
   "devDependencies": {
-    "@tscb/tsconfig": "workspace:*",
     "@tscb/builder-core": "workspace:*",
+    "@tscb/tsconfig": "workspace:*",
     "@types/node": "catalog:",
-    "rollup": "catalog:",
     "del-cli": "catalog:",
+    "rollup": "catalog:",
     "typescript": "catalog:"
   },
   "author": "Liu Hong <hongdoit@icloud.com> (https://github.com/YJJA)"

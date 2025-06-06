@@ -1,6 +1,6 @@
 {
   "name": "@tscb/builder-babel",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "license": "MIT",
   "bin": "./lib/bin.js",
@@ -15,8 +15,8 @@
     "src"
   ],
   "dependencies": {
-    "@tscb/builder-core": "workspace:*",
-    "@tscb/babel-adapter": "workspace:*"
+    "@tscb/babel-adapter": "workspace:*",
+    "@tscb/builder-core": "workspace:*"
   },
   "devDependencies": {
     "@tscb/tsconfig": "workspace:*",

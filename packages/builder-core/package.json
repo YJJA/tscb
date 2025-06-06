@@ -1,6 +1,6 @@
 {
   "name": "@tscb/builder-core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "license": "MIT",
   "main": "./lib/index.js",
@@ -13,13 +13,13 @@
     "prepublish": "pnpm run check-types && pnpm run clean && pnpm run build"
   },
   "dependencies": {
-    "@rollup/pluginutils": "catalog:",
-    "@rollup/plugin-node-resolve": "catalog:",
     "@rollup/plugin-commonjs": "catalog:",
+    "@rollup/plugin-node-resolve": "catalog:",
+    "@rollup/pluginutils": "catalog:",
     "glob": "catalog:",
-    "ts-morph": "catalog:",
+    "payload-is": "catalog:",
     "rollup": "catalog:",
-    "payload-is": "catalog:"
+    "ts-morph": "catalog:"
   },
   "devDependencies": {
     "@tscb/tsconfig": "workspace:*",

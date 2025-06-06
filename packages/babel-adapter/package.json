@@ -1,6 +1,6 @@
 {
   "name": "@tscb/babel-adapter",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "license": "MIT",
   "main": "./lib/index.js",
@@ -25,12 +25,12 @@
     "@rollup/pluginutils": "catalog:"
   },
   "devDependencies": {
-    "@tscb/tsconfig": "workspace:*",
     "@tscb/builder-core": "workspace:*",
-    "@types/node": "catalog:",
+    "@tscb/tsconfig": "workspace:*",
     "@types/babel__core": "catalog:",
-    "rollup": "catalog:",
+    "@types/node": "catalog:",
     "del-cli": "catalog:",
+    "rollup": "catalog:",
     "typescript": "catalog:"
   },
   "author": "Liu Hong <hongdoit@icloud.com> (https://github.com/YJJA)"
