@@ -11,6 +11,7 @@ export const paths = {
   packageJson: resolve("package.json"),
   tsconfigJson: resolve("tsconfig.json"),
   srcDir: resolve(SRC_DIR),
+  distDir: resolve(DIST_DIR),
   srcIndexFile: resolve(`${SRC_DIR}/index.ts`),
   distEsmDir: resolve(`${DIST_DIR}/${ESM_DIR}`),
   distCjsDir: resolve(`${DIST_DIR}/${CJS_DIR}`),

@@ -1,7 +1,6 @@
 import { glob } from "glob";
 import { readFile } from "node:fs/promises";
 import assert from "node:assert";
-import { builtinModules } from "node:module";
 import {
   isBoolean,
   isObject,
@@ -15,6 +14,8 @@ export interface BuildConfig {
   exports: string | string[];
   ignore?: string | string[];
   clean?: boolean;
+  treeshake?: boolean;
+  external?: boolean | string[];
 }
 
 export type PackageJson = Record<string, unknown>;
@@ -46,6 +47,17 @@ function checkBuildConfig(config: unknown): config is BuildConfig | undefined {
   const clean: unknown = Reflect.get(config, "clean");
   if (!isUndefined(clean) && !isBoolean(clean)) return false;
 
+  const treeshake: unknown = Reflect.get(config, "treeshake");
+  if (!isUndefined(treeshake) && !isBoolean(treeshake)) return false;
+
+  const external: unknown = Reflect.get(config, "external");
+  if (
+    !isUndefined(external) &&
+    !isBoolean(external) &&
+    !isStringArray(external)
+  )
+    return false;
+
   return true;
 }
 
@@ -67,8 +79,14 @@ export async function readEntryFiles(config: BuildConfig) {
 }
 
 // readExternal
-export function readExternal(pkg: PackageJson) {
-  return Object.keys(pkg.dependencies || {})
-    .concat(Object.keys(pkg.peerDependencies || {}))
-    .concat(builtinModules);
+export function readExternal(config: BuildConfig) {
+  if (config.external === true) {
+    return [/node_modules/];
+  }
+
+  if (isStringArray(config.external)) {
+    return config.external;
+  }
+
+  return [];
 }

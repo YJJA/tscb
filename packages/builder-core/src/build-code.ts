@@ -1,8 +1,10 @@
 import path from "node:path";
-import { rollup, type Plugin } from "rollup";
+import { rollup, type ExternalOption, type Plugin } from "rollup";
 import { paths } from "./paths.ts";
-import { readExternal, type PackageJson } from "./config.ts";
+import { readExternal, type BuildConfig } from "./config.ts";
 import type { FilterPattern } from "@rollup/pluginutils";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
 
 export interface AdapterOptions {
   targets: string[];
@@ -14,7 +16,7 @@ export type AdapterFunction = (input: AdapterOptions) => Plugin;
 
 // buildCode
 export async function buildCode(
-  pkg: PackageJson,
+  config: BuildConfig,
   entryFiles: string[],
   adapter: AdapterFunction,
 ) {
@@ -28,13 +30,18 @@ export async function buildCode(
     ]),
   );
 
-  const external = readExternal(pkg);
+  const external: ExternalOption = readExternal(config);
+  const treeshake = config.treeshake ?? true;
 
   // esm
   const esmbundle = await rollup({
     input,
     external,
+    treeshake,
     plugins: [
+      nodeResolve(),
+      // @ts-ignore
+      commonjs(),
       adapter({
         targets: [
           "defaults",
@@ -50,13 +57,18 @@ export async function buildCode(
     format: "esm",
     entryFileNames: "[name].js",
     sourcemap: true,
+    preserveModules: true,
   });
 
   // cjs
   const cjsbundle = await rollup({
     input,
     external,
+    treeshake,
     plugins: [
+      nodeResolve(),
+      // @ts-ignore
+      commonjs(),
       adapter({
         targets: ["maintained node versions"],
       }),
@@ -68,6 +80,7 @@ export async function buildCode(
     format: "cjs",
     entryFileNames: "[name].cjs",
     sourcemap: true,
+    preserveModules: true,
     exports: "named",
   });
 }

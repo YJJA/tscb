@@ -5,7 +5,12 @@
   "type": "module",
   "license": "MIT",
   "x-build": {
-    "exports": "src/*.ts"
+    "exports": "src/*.ts",
+    "ignore": [
+      "**/*.test.ts"
+    ],
+    "clean": true,
+    "external": true
   },
   "main": "./lib/commonjs/index.cjs",
   "module": "./lib/esm/index.js",
@@ -38,6 +43,9 @@
     "builder-swc": "builder-swc",
     "clean": "del lib",
     "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "payload-is": "catalog:"
   },
   "devDependencies": {
     "@tscb/tsconfig": "workspace:*",
