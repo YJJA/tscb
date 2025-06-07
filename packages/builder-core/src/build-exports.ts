@@ -1,6 +1,7 @@
 import { writeFile } from "node:fs/promises";
+import sortPackageJson from "sort-package-json";
 import { paths } from "./paths.ts";
-import { CJS_DIR, DIST_DIR, ESM_DIR, SRC_DIR, TYPES_DIR } from "./constants.ts";
+import { CJS_DIR, DIST_DIR, ESM_DIR, TYPES_DIR } from "./constants.ts";
 
 // buildExports
 export async function buildExports(
@@ -13,13 +14,29 @@ export async function buildExports(
     ["./package.json", "./package.json"],
   ]);
 
-  const newPkg = Object.assign({}, pkg, {
-    main: `./${DIST_DIR}/${CJS_DIR}/index.cjs`,
-    module: `./${DIST_DIR}/${ESM_DIR}/index.js`,
-    types: `./${DIST_DIR}/${TYPES_DIR}/index.d.ts`,
-    source: `./${SRC_DIR}/index.ts`,
-    exports: pkgExports,
-  });
+  const hasIndex =
+    Reflect.has(entryFiles, "index") || Reflect.has(entryFiles, ".");
+
+  let newPkg = pkg;
+  if (hasIndex) {
+    newPkg = Object.assign({}, pkg, {
+      main: `./${DIST_DIR}/${CJS_DIR}/index.cjs`,
+      module: `./${DIST_DIR}/${ESM_DIR}/index.js`,
+      types: `./${DIST_DIR}/${TYPES_DIR}/index.d.ts`,
+      exports: pkgExports,
+    });
+  } else {
+    Reflect.deleteProperty(newPkg, "main");
+    Reflect.deleteProperty(newPkg, "module");
+    Reflect.deleteProperty(newPkg, "types");
+    newPkg = Object.assign({}, pkg, {
+      exports: pkgExports,
+    });
+  }
+
+  // sort package.json
+  newPkg = sortPackageJson(newPkg);
+
   await writeFile(paths.packageJson, JSON.stringify(newPkg, null, 2), "utf8");
 }
 

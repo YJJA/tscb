@@ -19,6 +19,7 @@
     "@rollup/plugin-node-resolve": "catalog:",
     "@rollup/plugin-terser": "catalog:",
     "@rollup/pluginutils": "catalog:",
+    "sort-package-json": "catalog:",
     "glob": "catalog:",
     "minimatch": "catalog:",
     "payload-is": "catalog:",

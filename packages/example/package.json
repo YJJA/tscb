@@ -2,23 +2,9 @@
   "name": "@tscb/example",
   "version": "0.3.1",
   "private": true,
-  "type": "module",
+  "description": "An example package for testing the TypeScript Compiler Builder.",
   "license": "MIT",
-  "x-build": {
-    "exports": {
-      "index": "src/index.ts",
-      "other": "src/otherindex.ts"
-    },
-    "ignore": [
-      "**/*.test.ts"
-    ],
-    "clean": true,
-    "bundled": true
-  },
-  "main": "./lib/commonjs/index.cjs",
-  "module": "./lib/esm/index.js",
-  "types": "./lib/types/index.d.ts",
-  "source": "./src/index.ts",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./lib/types/index.d.ts",
@@ -26,20 +12,23 @@
       "require": "./lib/commonjs/index.cjs",
       "default": "./lib/commonjs/index.cjs"
     },
-    "./other": {
-      "types": "./lib/types/other.d.ts",
-      "import": "./lib/esm/other.js",
-      "require": "./lib/commonjs/other.cjs",
-      "default": "./lib/commonjs/other.cjs"
+    "./otherindex": {
+      "types": "./lib/types/otherindex.d.ts",
+      "import": "./lib/esm/otherindex.js",
+      "require": "./lib/commonjs/otherindex.cjs",
+      "default": "./lib/commonjs/otherindex.cjs"
     },
     "./package.json": "./package.json"
   },
+  "main": "./lib/commonjs/index.cjs",
+  "module": "./lib/esm/index.js",
+  "types": "./lib/types/index.d.ts",
   "scripts": {
     "builder-babel": "builder-babel",
     "builder-esbuild": "builder-esbuild",
     "builder-swc": "builder-swc",
-    "clean": "del lib",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "clean": "del lib"
   },
   "dependencies": {
     "payload-is": "catalog:"
@@ -52,5 +41,16 @@
     "@types/node": "catalog:",
     "del-cli": "catalog:",
     "typescript": "catalog:"
+  },
+  "x-build": {
+    "exports": {
+      "otherindex": "src/otherindex.ts",
+      "index": "src/index.ts"
+    },
+    "ignore": [
+      "**/*.test.ts"
+    ],
+    "clean": true,
+    "bundled": true
   }
 }
