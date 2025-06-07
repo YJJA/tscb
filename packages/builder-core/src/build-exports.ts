@@ -1,7 +1,7 @@
 import { writeFile } from "node:fs/promises";
 import sortPackageJson from "sort-package-json";
-import { paths } from "./paths.ts";
 import { CJS_DIR, DIST_DIR, ESM_DIR, TYPES_DIR } from "./constants.ts";
+import { paths } from "./paths.ts";
 
 // buildExports
 export async function buildExports(

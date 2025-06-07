@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 import { rm } from "node:fs/promises";
 import { buildCode, type AdapterFunction } from "./build-code.ts";
 import { buildExports } from "./build-exports.ts";

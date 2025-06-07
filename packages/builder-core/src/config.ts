@@ -1,13 +1,13 @@
-import { glob } from "glob";
-import { readFile } from "node:fs/promises";
 import assert from "node:assert";
+import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { glob } from "glob";
+import { makeRe } from "minimatch";
 import { isObject, isString, isStringArray } from "payload-is";
 import type { ExternalOption } from "rollup";
-import { makeRe } from "minimatch";
 import { z } from "zod/v4";
-import { paths } from "./paths.ts";
 import { SRC_DIR } from "./constants.ts";
+import { paths } from "./paths.ts";
 
 // Type Guards
 const BuildConfig = z

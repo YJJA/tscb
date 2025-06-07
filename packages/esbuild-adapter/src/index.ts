@@ -1,13 +1,13 @@
+import { extname } from "node:path";
+import { createFilter } from "@rollup/pluginutils";
+import { extensions, type AdapterOptions } from "@tscb/builder-core";
+import browserslist from "browserslist-to-esbuild";
 import {
   transform,
   type TransformOptions,
   type TransformResult,
 } from "esbuild";
-import { createFilter } from "@rollup/pluginutils";
-import browserslist from "browserslist-to-esbuild";
 import type { Plugin } from "rollup";
-import { extensions, type AdapterOptions } from "@tscb/builder-core";
-import { extname } from "node:path";
 
 export type TransformFunction = (
   src: string,

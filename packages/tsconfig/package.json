@@ -2,9 +2,9 @@
   "name": "@tscb/tsconfig",
   "version": "0.3.0",
   "license": "MIT",
+  "author": "Liu Hong <hongdoit@icloud.com> (https://github.com/YJJA)",
   "files": [
     "base.json",
     "types-only.json"
-  ],
-  "author": "Liu Hong <hongdoit@icloud.com> (https://github.com/YJJA)"
+  ]
 }

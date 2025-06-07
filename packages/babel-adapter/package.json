@@ -1,22 +1,22 @@
 {
   "name": "@tscb/babel-adapter",
   "version": "0.3.1",
-  "type": "module",
   "license": "MIT",
+  "author": "Liu Hong <hongdoit@icloud.com> (https://github.com/YJJA)",
+  "type": "module",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "build": "tsc",
-    "clean": "del lib",
-    "test": "node --test **/*.test.ts",
     "check-types": "tsc --noEmit",
-    "prepublish": "pnpm run check-types && pnpm run clean && pnpm run build"
+    "clean": "del lib",
+    "prepublish": "pnpm run check-types && pnpm run clean && pnpm run build",
+    "test": "node --test **/*.test.ts"
   },
-  "files": [
-    "lib",
-    "src"
-  ],
   "dependencies": {
     "@babel/core": "catalog:",
     "@babel/plugin-transform-runtime": "catalog:",
@@ -32,6 +32,5 @@
     "del-cli": "catalog:",
     "rollup": "catalog:",
     "typescript": "catalog:"
-  },
-  "author": "Liu Hong <hongdoit@icloud.com> (https://github.com/YJJA)"
+  }
 }

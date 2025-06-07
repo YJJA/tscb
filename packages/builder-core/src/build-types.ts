@@ -1,13 +1,13 @@
-import path from "node:path";
 import { rm } from "node:fs/promises";
-import { Project } from "ts-morph";
+import path from "node:path";
 import {
   Extractor,
   ExtractorConfig,
   type IExtractorConfigPrepareOptions,
 } from "@microsoft/api-extractor";
-import { paths } from "./paths.ts";
+import { Project } from "ts-morph";
 import { SRC_DIR } from "./constants.ts";
+import { paths } from "./paths.ts";
 
 // buildApiExtractor
 function buildApiExtractor(

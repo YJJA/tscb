@@ -1,15 +1,19 @@
 {
   "name": "@tscb/builder-core",
   "version": "0.3.1",
-  "type": "module",
   "license": "MIT",
+  "author": "Liu Hong <hongdoit@icloud.com> (https://github.com/YJJA)",
+  "type": "module",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "build": "tsc",
-    "clean": "del lib",
     "check-types": "tsc --noEmit",
+    "clean": "del lib",
     "prepublish": "pnpm run check-types && pnpm run clean && pnpm run build"
   },
   "dependencies": {
@@ -19,11 +23,11 @@
     "@rollup/plugin-node-resolve": "catalog:",
     "@rollup/plugin-terser": "catalog:",
     "@rollup/pluginutils": "catalog:",
-    "sort-package-json": "catalog:",
     "glob": "catalog:",
     "minimatch": "catalog:",
     "payload-is": "catalog:",
     "rollup": "catalog:",
+    "sort-package-json": "catalog:",
     "ts-morph": "catalog:",
     "zod": "catalog:"
   },
@@ -32,6 +36,5 @@
     "@types/node": "catalog:",
     "del-cli": "catalog:",
     "typescript": "catalog:"
-  },
-  "author": "Liu Hong <hongdoit@icloud.com> (https://github.com/YJJA)"
+  }
 }

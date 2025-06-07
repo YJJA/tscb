@@ -1,12 +1,12 @@
 import { styleText } from "node:util";
-import { rollup, type Plugin } from "rollup";
-import type { FilterPattern } from "@rollup/pluginutils";
-import { nodeResolve } from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
-import { paths } from "./paths.ts";
+import type { FilterPattern } from "@rollup/pluginutils";
+import { rollup, type Plugin } from "rollup";
 import { readExternal, type BuildConfig } from "./config.ts";
+import { paths } from "./paths.ts";
 
 export interface AdapterOptions {
   targets: string[];

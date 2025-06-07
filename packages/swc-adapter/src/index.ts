@@ -1,3 +1,4 @@
+import { extname } from "node:path";
 import { createFilter } from "@rollup/pluginutils";
 import {
   transform,
@@ -5,9 +6,8 @@ import {
   type Output,
   type ParserConfig,
 } from "@swc/core";
-import type { Plugin } from "rollup";
 import { extensions, type AdapterOptions } from "@tscb/builder-core";
-import { extname } from "node:path";
+import type { Plugin } from "rollup";
 
 export type TransformFunction = (
   src: string,
