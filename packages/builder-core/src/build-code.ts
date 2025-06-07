@@ -1,5 +1,5 @@
 import { styleText } from "node:util";
-import { rollup, type ExternalOption, type Plugin } from "rollup";
+import { rollup, type Plugin } from "rollup";
 import type { FilterPattern } from "@rollup/pluginutils";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
@@ -33,7 +33,7 @@ export async function buildCode(
       return [fileName, paths.resolve(file)];
     }),
   );
-  const external: ExternalOption = readExternal(config);
+  const external = readExternal(config);
   const treeshake = config.treeshake ?? true;
 
   // esm

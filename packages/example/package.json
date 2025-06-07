@@ -13,7 +13,7 @@
       "**/*.test.ts"
     ],
     "clean": true,
-    "minify": true
+    "bundled": true
   },
   "main": "./lib/commonjs/index.cjs",
   "module": "./lib/esm/index.js",

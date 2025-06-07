@@ -10,13 +10,18 @@ import { paths } from "./paths.ts";
 import { SRC_DIR } from "./constants.ts";
 
 // buildApiExtractor
-function buildApiExtractor(entryName: string, tempName: string) {
+function buildApiExtractor(
+  entryName: string,
+  tempName: string,
+  bundledPackages: string[] = [],
+) {
   const config: IExtractorConfigPrepareOptions = {
     configObject: {
       mainEntryPointFilePath: path.join(paths.distTmpDir, `${tempName}.d.ts`),
       compiler: {
         tsconfigFilePath: paths.tsconfigJson,
       },
+      bundledPackages,
       dtsRollup: {
         enabled: true,
         publicTrimmedFilePath: path.join(
@@ -40,7 +45,10 @@ function buildApiExtractor(entryName: string, tempName: string) {
 }
 
 // buildEntryTypes
-function buildEntryTypes(entryFiles: Record<string, string>) {
+function buildEntryTypes(
+  entryFiles: Record<string, string>,
+  bundledPackages: string[] = [],
+) {
   const result = Object.entries(entryFiles).map(([name, file]) => {
     let targetName = name;
     if (name === ".") {
@@ -52,7 +60,7 @@ function buildEntryTypes(entryFiles: Record<string, string>) {
       SRC_DIR,
       file.slice(0, file.length - path.extname(file).length),
     );
-    return buildApiExtractor(targetName, tempName);
+    return buildApiExtractor(targetName, tempName, bundledPackages);
   });
 
   const hasError = result.some((r) => r.succeeded === false);
@@ -83,10 +91,13 @@ export async function emitTypes(entryFiles: Record<string, string>) {
 }
 
 // buildTypes
-export async function buildTypes(entryFiles: Record<string, string>) {
+export async function buildTypes(
+  entryFiles: Record<string, string>,
+  bundledPackages: string[] = [],
+) {
   await emitTypes(entryFiles);
 
-  buildEntryTypes(entryFiles);
+  buildEntryTypes(entryFiles, bundledPackages);
 
   await rm(paths.distTmpDir, { recursive: true, force: true });
 }

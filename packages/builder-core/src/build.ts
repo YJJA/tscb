@@ -4,7 +4,12 @@ import { rm } from "node:fs/promises";
 import { buildCode, type AdapterFunction } from "./build-code.ts";
 import { buildExports } from "./build-exports.ts";
 import { buildTypes } from "./build-types.ts";
-import { readPackageJson, readBuildConfig, readEntryFiles } from "./config.ts";
+import {
+  readPackageJson,
+  readBuildConfig,
+  readEntryFiles,
+  readBundledPackages,
+} from "./config.ts";
 import { paths } from "./paths.ts";
 
 export async function build(adapter: AdapterFunction) {
@@ -24,5 +29,6 @@ export async function build(adapter: AdapterFunction) {
 
   await buildCode(buildConfig, entryFiles, adapter);
   await buildExports(pkg, entryFiles);
-  await buildTypes(entryFiles);
+  const bundledPackages = readBundledPackages(buildConfig, pkg);
+  await buildTypes(entryFiles, bundledPackages);
 }

@@ -1,3 +1,4 @@
+import { isBigInt } from "payload-is";
 import { bar } from "./bar.ts";
 import { foo } from "./foo.ts";
 
@@ -7,4 +8,4 @@ export default function example() {
   bar();
 }
 
-export { bar, foo };
+export { bar, foo, isBigInt };

@@ -19,10 +19,12 @@
     "@rollup/plugin-node-resolve": "catalog:",
     "@rollup/plugin-terser": "catalog:",
     "@rollup/pluginutils": "catalog:",
+    "minimatch": "catalog:",
     "glob": "catalog:",
     "payload-is": "catalog:",
     "rollup": "catalog:",
-    "ts-morph": "catalog:"
+    "ts-morph": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@tscb/tsconfig": "workspace:*",
