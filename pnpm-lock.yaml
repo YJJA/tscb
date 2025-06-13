@@ -82,20 +82,19 @@ catalogs:
 importers:
 
   .:
-    dependencies:
+    devDependencies:
       '@changesets/cli':
         specifier: ^2.29.4
         version: 2.29.4
-      prettier:
-        specifier: ^3.5.3
-        version: 3.5.3
-    devDependencies:
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^5.2.2
         version: 5.2.2(prettier@3.5.3)
       lerna:
         specifier: ^8.2.2
         version: 8.2.2(@swc/core@1.11.31)(encoding@0.1.13)
+      prettier:
+        specifier: ^3.5.3
+        version: 3.5.3
       prettier-plugin-packagejson:
         specifier: ^2.5.15
         version: 2.5.15(prettier@3.5.3)
