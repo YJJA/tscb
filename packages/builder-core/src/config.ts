@@ -9,6 +9,14 @@ import { z } from "zod/v4";
 import { SRC_DIR } from "./constants.ts";
 import { paths } from "./paths.ts";
 
+// Target Types
+const BuildTargets = z.union([z.string(), z.array(z.string())]);
+
+// Build Format Types
+const BuildFormat = z.enum(["esm", "cjs"]);
+
+export type BuildFormat = z.infer<typeof BuildFormat>;
+
 // Type Guards
 const BuildConfig = z
   .object({
@@ -48,6 +56,46 @@ const BuildConfig = z
      * @see {@link https://api-extractor.com/pages/configs/api-extractor_json/#bundledpackages}
      */
     bundled: z.union([z.boolean(), z.array(z.string())]).default(false),
+
+    /**
+     * The format of the build output.
+     * Can be a single format or an array of formats.
+     * @default ["esm", "cjs"]
+     */
+    format: z
+      .union([BuildFormat, z.array(BuildFormat)])
+      .default(["esm", "cjs"]),
+
+    /**
+     * Describes the environments you support/target for your project.
+     * @default {
+     *  esm: ["defaults","fully supports es6-module","maintained node versions"],
+     *  cjs: ["maintained node versions"],
+     * }
+     * @see https://babel.dev/docs/options#targets
+     */
+    targets: z
+      .union([
+        BuildTargets,
+        z.object({
+          esm: BuildTargets,
+          cjs: BuildTargets,
+        }),
+      ])
+      .default({
+        esm: [
+          "defaults",
+          "fully supports es6-module",
+          "maintained node versions",
+        ],
+        cjs: ["maintained node versions"],
+      }),
+
+    /**
+     * Whether to generate type definitions for the build.
+     * @default true
+     */
+    types: z.boolean().default(true),
 
     /**
      * Whether to clean the output directory before building.

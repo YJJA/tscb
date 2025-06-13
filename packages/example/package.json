@@ -47,6 +47,7 @@
       "otherindex": "src/otherindex.ts",
       "index": "src/index.ts"
     },
+    "targets": "maintained node versions",
     "ignore": [
       "**/*.test.ts"
     ],

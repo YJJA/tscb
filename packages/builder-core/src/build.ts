@@ -27,7 +27,10 @@ export async function build(adapter: AdapterFunction) {
   }
 
   await buildCode(buildConfig, entryFiles, adapter);
-  await buildExports(pkg, entryFiles);
+  await buildExports(pkg, buildConfig, entryFiles);
   const bundledPackages = readBundledPackages(buildConfig, pkg);
-  await buildTypes(entryFiles, bundledPackages);
+
+  if (buildConfig.types) {
+    await buildTypes(entryFiles, bundledPackages);
+  }
 }
