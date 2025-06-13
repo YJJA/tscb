@@ -18,8 +18,10 @@ jobs:
           node-version: 24
       - name: Install dependencies
         run: pnpm install
+      - name: Build
+        run: pnpm -r build
       - name: Check types
-        run: tsc && pnpm -r check-types
+        run: pnpm -r check-types
 
   publish-npm:
     needs: build
@@ -31,6 +33,8 @@ jobs:
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org/
+      - name: Build
+        run: pnpm -r build
       - run: pnpm publish --recursive --access=public
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
