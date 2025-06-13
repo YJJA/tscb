@@ -1,6 +1,6 @@
 {
   "name": "@tscb/esbuild-adapter",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "license": "MIT",
   "author": "Liu Hong <hongdoit@icloud.com> (https://github.com/YJJA)",
   "type": "module",
