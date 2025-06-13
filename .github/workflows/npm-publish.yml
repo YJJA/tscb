@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Check types
-        run: pnpm -r check-types
+        run: tsc && pnpm -r check-types
 
   publish-npm:
     needs: build
