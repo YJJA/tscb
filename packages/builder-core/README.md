@@ -1,28 +1,28 @@
 # @tscb/builder-core
 
-TypeScript 构建流程通用工具库。
+Common utility library for TypeScript build processes.
 
-## 简介
+## Introduction
 
-`@tscb/builder-core` 提供了 TypeScript 构建相关的通用方法，包括类型生成、代码编译、导出字段生成、配置读取等，作为各构建工具的基础依赖。
+`@tscb/builder-core` provides common methods related to TypeScript building, including type generation, code compilation, export field generation, configuration reading, etc., serving as a foundational dependency for various build tools.
 
-## 主要功能
+## Main Features
 
-- 类型声明文件生成
-- 代码编译与转换
-- 构建配置读取
-- 多入口文件支持
+- Type declaration file generation
+- Code compilation and transformation
+- Build configuration reading
+- Multi-entry file support
 
-## 安装
+## Installation
 
 ```sh
 pnpm add -D @tscb/builder-core
 ```
 
-## 用法
+## Usage
 
-可在自定义构建脚本或插件中直接调用本工具库的 API。
+You can directly call the APIs of this utility library in custom build scripts or plugins.
 
-## 许可证
+## License
 
 MIT License

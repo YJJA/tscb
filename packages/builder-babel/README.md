@@ -1,27 +1,27 @@
 # @tscb/builder-babel
 
-基于 Babel 的 TypeScript 构建工具。
+TypeScript build tool based on Babel.
 
-## 简介
+## Introduction
 
-`@tscb/builder-babel` 是一个用于 TypeScript 项目的构建工具，集成了 Babel 作为代码转换器，支持类型生成、代码编译和导出文件的自动生成。适用于需要自定义构建流程或希望利用 Babel 插件生态的项目。
+`@tscb/builder-babel` is a build tool for TypeScript projects that integrates Babel as a code transformer, supporting type generation, code compilation, and automatic export file generation. It's suitable for projects that need customized build processes or want to leverage the Babel plugin ecosystem.
 
-## 特性
+## Features
 
-- 使用 Babel 进行代码转换
-- 自动生成类型声明文件
-- 支持多入口文件
-- 可扩展的构建配置
+- Code transformation using Babel
+- Automatic type declaration file generation
+- Support for multiple entry files
+- Extensible build configuration
 
-## 安装
+## Installation
 
 ```sh
 pnpm add -D @tscb/builder-babel
 ```
 
-## 用法
+## Usage
 
-在 package.json 中配置构建命令：
+Configure the build command in package.json:
 
 ```json
 {
@@ -31,21 +31,21 @@ pnpm add -D @tscb/builder-babel
 }
 ```
 
-或直接在命令行运行：
+Or run directly from the command line:
 
 ```sh
 pnpm tscb-builder-babel
 ```
 
-## 配置
+## Configuration
 
-构建工具会自动读取项目中的配置文件和入口文件。详细配置可参考 `@tscb/builder-core` 和 `@tscb/plugin-babel`。
+The build tool automatically reads configuration files and entry files from the project. For detailed configuration, refer to `@tscb/builder-core` and `@tscb/plugin-babel`.
 
-## 依赖
+## Dependencies
 
 - [@tscb/builder-core](../builder-core)
 - [@tscb/plugin-babel](../plugin-babel)
 
-## 许可证
+## License
 
 MIT License

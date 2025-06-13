@@ -1,27 +1,27 @@
 # @tscb/builder-esbuild
 
-基于 esbuild 的 TypeScript 构建工具。
+TypeScript build tool based on esbuild.
 
-## 简介
+## Introduction
 
-`@tscb/builder-esbuild` 是一个集成 esbuild 的 TypeScript 构建工具，支持高性能的代码编译、类型生成和导出文件自动生成，适用于追求极致构建速度的项目。
+`@tscb/builder-esbuild` is a TypeScript build tool that integrates esbuild, supporting high-performance code compilation, type generation, and automatic export file generation. It's suitable for projects that pursue maximum build speed.
 
-## 特性
+## Features
 
-- 使用 esbuild 进行极速代码转换
-- 自动生成类型声明文件
-- 支持多入口文件
-- 可扩展的构建配置
+- Ultra-fast code transformation using esbuild
+- Automatic type declaration file generation
+- Support for multiple entry files
+- Extensible build configuration
 
-## 安装
+## Installation
 
 ```sh
 pnpm add -D @tscb/builder-esbuild
 ```
 
-## 用法
+## Usage
 
-在 package.json 中配置构建命令：
+Configure the build command in package.json:
 
 ```json
 {
@@ -31,21 +31,21 @@ pnpm add -D @tscb/builder-esbuild
 }
 ```
 
-或直接在命令行运行：
+Or run directly from the command line:
 
 ```sh
 pnpm tscb-builder-esbuild
 ```
 
-## 配置
+## Configuration
 
-构建工具会自动读取项目中的配置文件和入口文件。详细配置可参考 `@tscb/builder-core` 和 `@tscb/plugin-esbuild`。
+The build tool automatically reads configuration files and entry files from the project. For detailed configuration, refer to `@tscb/builder-core` and `@tscb/plugin-esbuild`.
 
-## 依赖
+## Dependencies
 
 - [@tscb/builder-core](../builder-core)
 - [@tscb/plugin-esbuild](../plugin-esbuild)
 
-## 许可证
+## License
 
 MIT License

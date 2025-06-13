@@ -1,27 +1,27 @@
 # @tscb/builder-swc
 
-基于 SWC 的 TypeScript 构建工具。
+TypeScript build tool based on SWC.
 
-## 简介
+## Introduction
 
-`@tscb/builder-swc` 是一个集成 SWC 的 TypeScript 构建工具，支持高性能的代码编译、类型生成和导出文件自动生成，适用于需要极致性能和现代语法支持的项目。
+`@tscb/builder-swc` is a TypeScript build tool that integrates SWC, supporting high-performance code compilation, type generation, and automatic export file generation. It's suitable for projects that need extreme performance and modern syntax support.
 
-## 特性
+## Features
 
-- 使用 SWC 进行极速代码转换
-- 自动生成类型声明文件
-- 支持多入口文件
-- 可扩展的构建配置
+- Ultra-fast code transformation using SWC
+- Automatic type declaration file generation
+- Support for multiple entry files
+- Extensible build configuration
 
-## 安装
+## Installation
 
 ```sh
 pnpm add -D @tscb/builder-swc
 ```
 
-## 用法
+## Usage
 
-在 package.json 中配置构建命令：
+Configure the build command in package.json:
 
 ```json
 {
@@ -31,21 +31,21 @@ pnpm add -D @tscb/builder-swc
 }
 ```
 
-或直接在命令行运行：
+Or run directly from the command line:
 
 ```sh
 pnpm tscb-builder-swc
 ```
 
-## 配置
+## Configuration
 
-构建工具会自动读取项目中的配置文件和入口文件。详细配置可参考 `@tscb/builder-core` 和 `@tscb/plugin-swc`。
+The build tool automatically reads configuration files and entry files from the project. For detailed configuration, refer to `@tscb/builder-core` and `@tscb/plugin-swc`.
 
-## 依赖
+## Dependencies
 
 - [@tscb/builder-core](../builder-core)
 - [@tscb/plugin-swc](../plugin-swc)
 
-## 许可证
+## License
 
 MIT License
