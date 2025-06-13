@@ -17,8 +17,8 @@ jobs:
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org/
-      - name: pnpm -r build
-      - name: pnpm -r check-types
+      - run: pnpm -r build
+      - run: pnpm -r check-types
       - run: pnpm publish --no-git-checks --recursive --access=public
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
